@@ -1,0 +1,79 @@
+{
+  "model": "random_forest_delay_risk",
+  "model_version": "rf-delay-v1",
+  "trained_on": "SYNTHETIC",
+  "trained_at": "2026-09-08T10:24:05.442788+00:00",
+  "n_samples": 1200,
+  "n_train": 960,
+  "n_test": 240,
+  "feature_names": [
+    "current_stage_index",
+    "days_since_start",
+    "days_in_current_stage",
+    "workflow_event_count",
+    "completed_stage_count",
+    "remaining_stage_count",
+    "compensation_assessed",
+    "compensation_paid_ratio",
+    "unpaid_balance",
+    "field_verification_done",
+    "field_checks_complete",
+    "gps_available",
+    "document_count",
+    "unverified_document_count",
+    "affected_family_count",
+    "displaced_family_count",
+    "project_area_ha",
+    "parcel_area_ha",
+    "project_is_delayed"
+  ],
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "accuracy": 0.7792,
+  "precision_macro": 0.669,
+  "recall_macro": 0.5896,
+  "f1_macro": 0.6088,
+  "confusion_matrix": [
+    [
+      52,
+      20,
+      0
+    ],
+    [
+      14,
+      132,
+      4
+    ],
+    [
+      0,
+      15,
+      3
+    ]
+  ],
+  "feature_importances": {
+    "current_stage_index": 0.0249,
+    "days_since_start": 0.0588,
+    "days_in_current_stage": 0.1604,
+    "workflow_event_count": 0.0252,
+    "completed_stage_count": 0.0248,
+    "remaining_stage_count": 0.0221,
+    "compensation_assessed": 0.0398,
+    "compensation_paid_ratio": 0.1447,
+    "unpaid_balance": 0.062,
+    "field_verification_done": 0.0655,
+    "field_checks_complete": 0.0252,
+    "gps_available": 0.012,
+    "document_count": 0.0363,
+    "unverified_document_count": 0.0568,
+    "affected_family_count": 0.0264,
+    "displaced_family_count": 0.0351,
+    "project_area_ha": 0.0392,
+    "parcel_area_ha": 0.0441,
+    "project_is_delayed": 0.0967
+  },
+  "disclaimer": "This model is a prototype trained on synthetic demonstration data and is not a validated government decision-making model.",
+  "roc_auc_ovr": 0.866
+}

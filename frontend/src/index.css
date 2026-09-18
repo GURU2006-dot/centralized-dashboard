@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "IBM Plex Serif", Georgia, serif;
+  --color-ink: #0f2744;
+  --color-navy: #143a5c;
+  --color-navy-800: #0d2740;
+  --color-teal: #0f766e;
+  --color-teal-700: #115e59;
+  --color-sand: #f3efe6;
+  --color-paper: #f6f4ef;
+  --color-line: #d9e0e7;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #eef2f4;
+  color: #1c2b3a;
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(20, 58, 92, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 8px 24px rgba(15, 39, 68, 0.06);
+}
+
+.leaflet-container {
+  font-family: var(--font-sans);
+  z-index: 0;
+  background: #dce6de;
+}

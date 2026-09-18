@@ -1,0 +1,30 @@
+.env
+backend/.venv
+.venv
+__pycache__/
+*.pyc
+.pytest_cache/
+data/uploads/*
+!data/uploads/.gitkeep
+*.egg-info/
+
+# Ruflo local secrets and runtime data
+.env.local
+.env.*.local
+.claude-flow/data/
+.claude-flow/logs/
+.claude-flow/sessions/
+
+# Codex local configuration
+.codex/
+# Claude Flow runtime data
+# Environment variables
+.sudo_as_admin_successful
+.claude-flow/
+.claude/
+.agents/
+.sudo_as_admin_successful
+.claude-flow/
+.claude/
+.agents/
+SIH-26016-NLAMP-progress-through-Phase1.zip
