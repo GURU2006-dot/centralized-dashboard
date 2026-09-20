@@ -28,19 +28,15 @@ Examples:
 - temporary implementation decision
 - next immediate action
 
-## Completed Task: AI Brain Experiment
+## Completed Task: National Acquisition Pulse
 
-- Dashboard analysis was completed successfully.
-- `AI_BRAIN.md` and `AI_RULES.md` were used to guide targeted repository exploration.
-- Avoided deep inspection of unrelated authentication, proposal, workflow, field verification, document, integration, migration, and deployment modules.
-- No source-code, dependency, database, migration, or configuration changes were made.
-- Identified `DashboardPage.jsx` as the primary frontend modification point for a first Command Center implementation.
-- Potential future backend enhancements were identified separately rather than implemented.
-- The experiment demonstrated exploration and context discipline, not measured cost savings (no percentage or token savings claimed).
-
-## Important Temporary Notes
-
-- Next candidate step: inspect and plan targeted changes to `DashboardPage.jsx` for the Command Center UI.
+- Added `NationalAcquisitionPulse` section to `DashboardPage.jsx`.
+- Reuses existing `kpis` + `ml` API state — no new endpoints, no new dependencies.
+- Six headline metrics: Active projects, Land acquired, Compensation disbursed %, Delayed projects, High delay risk (Prototype Risk Index), R&R complete.
+- Disbursement rate is a derived metric computed client-side from existing `kpis.compensation_paid_inr / kpis.compensation_assessed_inr`.
+- Loading skeletons, null-safe values, and semantic HTML (`<section aria-label>`, `id`/`aria-labelledby`) all implemented.
+- `npm run lint` → 0 errors. `npm run build` → exit 0, ✓ 8.36s.
+- No backend, database, migration, RBAC, or API contract changes made.
 
 ## Session Rules
 

@@ -138,6 +138,9 @@ export default function DashboardPage() {
         </Select>
       </div>
 
+      {/* ── National Acquisition Pulse ── */}
+      <NationalAcquisitionPulse kpis={kpis} ml={ml} loading={loading} />
+
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
         <StatCard loading={loading} label="Total projects" value={num(kpis?.total_projects)} />
         <StatCard loading={loading} label="Area notified" value={ha(kpis?.area_notified_ha)} />
@@ -280,5 +283,119 @@ function ChartCard({ title, children }) {
       <h2 className="mb-3 font-serif text-lg text-ink">{title}</h2>
       {children}
     </Card>
+  );
+}
+
+/**
+ * National Acquisition Pulse
+ * A compact, operationally-focused band of headline KPIs placed near the top
+ * of the Dashboard. Reuses existing kpis + ml API data — no new endpoints.
+ */
+function NationalAcquisitionPulse({ kpis, ml, loading }) {
+  // Derived: compensation disbursement rate (paid / assessed)
+  const disbRate =
+    kpis?.compensation_assessed_inr && kpis.compensation_assessed_inr > 0
+      ? Math.round((kpis.compensation_paid_inr / kpis.compensation_assessed_inr) * 100)
+      : null;
+
+  const metrics = [
+    {
+      id: "pulse-projects",
+      label: "Active projects",
+      value: num(kpis?.total_projects),
+      accent: "teal",
+    },
+    {
+      id: "pulse-acquired",
+      label: "Land acquired",
+      value: ha(kpis?.area_acquired_ha),
+      accent: "teal",
+    },
+    {
+      id: "pulse-disb",
+      label: "Disbursement progress",
+      value: disbRate != null ? `${disbRate}%` : "—",
+      hint: "paid vs assessed",
+      accent: disbRate != null && disbRate < 50 ? "amber" : "teal",
+    },
+    {
+      id: "pulse-delayed",
+      label: "Delayed projects",
+      value: num(kpis?.delayed_projects),
+      accent: kpis?.delayed_projects > 0 ? "red" : "teal",
+    },
+    {
+      id: "pulse-highrisk",
+      label: "High delay risk",
+      value: num(ml?.high_risk_cases),
+      hint: "Prototype Risk Index",
+      accent: ml?.high_risk_cases > 0 ? "red" : "teal",
+    },
+    {
+      id: "pulse-rr",
+      label: "R\u0026R complete",
+      value: kpis?.rr_progress?.pct_complete != null ? `${kpis.rr_progress.pct_complete}%` : "—",
+      accent: "teal",
+    },
+  ];
+
+  return (
+    <section
+      aria-label="National Acquisition Pulse"
+      className="mb-5 rounded-2xl border border-teal-100 bg-gradient-to-r from-[#0f3552]/[0.04] to-teal-50/40 p-4"
+    >
+      <div className="mb-3 flex items-center gap-2">
+        <span
+          className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-teal-600"
+          aria-hidden="true"
+        />
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-teal-800">
+          National Acquisition Pulse
+        </h2>
+        <span className="ml-auto text-xs text-slate-400">
+          Synthetic demonstration data
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {metrics.map((m) =>
+          loading ? (
+            <div key={m.id} className="space-y-2">
+              <div className="h-3 w-20 animate-pulse rounded bg-slate-200" aria-hidden="true" />
+              <div className="h-7 w-16 animate-pulse rounded bg-slate-200" aria-hidden="true" />
+            </div>
+          ) : (
+            <PulseMetric key={m.id} id={m.id} {...m} />
+          )
+        )}
+      </div>
+    </section>
+  );
+}
+
+const PULSE_ACCENT = {
+  teal: "text-teal-700",
+  amber: "text-amber-600",
+  red: "text-red-600",
+};
+
+function PulseMetric({ id, label, value, hint, accent = "teal" }) {
+  return (
+    <div>
+      <p
+        id={`${id}-label`}
+        className="text-xs font-semibold uppercase tracking-wide text-slate-500"
+      >
+        {label}
+      </p>
+      <p
+        aria-labelledby={`${id}-label`}
+        className={`mt-1 font-serif text-2xl font-semibold leading-tight ${PULSE_ACCENT[accent] ?? PULSE_ACCENT.teal}`}
+      >
+        {value ?? "—"}
+      </p>
+      {hint ? (
+        <p className="mt-0.5 text-xs text-slate-400">{hint}</p>
+      ) : null}
+    </div>
   );
 }
